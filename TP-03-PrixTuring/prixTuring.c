@@ -17,6 +17,14 @@
 #include <string.h>
 #include <stdbool.h>
 
+typedef struct {
+	int année;
+	char* nom_gagnant;
+	char* sujet;
+
+}gagnant;
+
+
 /* This function scans a line of text (until \n) and returns a char* that contains all characters on the line (up to 255) excluding \n.
 It also ensures the \0 termination.
 **WARNING**: The result of this function has been allocated (calloc) by the function */
@@ -48,12 +56,46 @@ int scanLineAsInt() {
 	return buf;
 }
 
+gagnant** Readwinners(int n, gagnant** t){
+	gagnant t[n];
+
+	for (int i=0;i<n;i++){
+		gagnant a;
+		a.année=scanLineAsInt();
+		a.nom_gagnant=scanLine();
+		a.sujet=scanLine();
+		t[i]=a;
+
+
+
+	}
+	return &t[0];
+}
+
+void printWinners(gagnant** t,int n){
+	for (int i=0;i<n;i++){
+		printf("%i \n",t[i]->année);
+		printf("%s \n",t[i]->nom_gagnant);
+		printf("%s \n", t[i]->sujet) ;
+	while (true){};
+	}
+
+
+}
+   
+
 
 int main(void)
 {
 
+
 	int nbGagnants = scanLineAsInt();
+	gagnant* t[nbGagnants];
+
+
 	printf("nbGagnants = %i\n",nbGagnants);
+	gagnant** g= Readwinners(nbGagnants, t*);
+	printWinners(g,nbGagnants);
 
 	return EXIT_SUCCESS;
 }
