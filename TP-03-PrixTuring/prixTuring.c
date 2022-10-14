@@ -56,10 +56,12 @@ int scanLineAsInt() {
 	return buf;
 }
 
-gagnant** Readwinners(int n, gagnant** t){
-	gagnant t[n];
+gagnant* Readwinners(int n){
+	gagnant* t;
+	t=calloc(n,sizeof(gagnant));
 
 	for (int i=0;i<n;i++){
+
 		gagnant a;
 		a.année=scanLineAsInt();
 		a.nom_gagnant=scanLine();
@@ -69,15 +71,14 @@ gagnant** Readwinners(int n, gagnant** t){
 
 
 	}
-	return &t[0];
+	return t;
 }
 
-void printWinners(gagnant** t,int n){
+void printWinners(gagnant* t,int n){
 	for (int i=0;i<n;i++){
-		printf("%i \n",t[i]->année);
-		printf("%s \n",t[i]->nom_gagnant);
-		printf("%s \n", t[i]->sujet) ;
-	while (true){};
+		printf("%i \n",t[i].année);
+		printf("%s \n",t[i].nom_gagnant);
+		printf("%s \n", t[i].sujet) ;
 	}
 
 
@@ -90,12 +91,9 @@ int main(void)
 
 
 	int nbGagnants = scanLineAsInt();
-	gagnant* t[nbGagnants];
-
-
 	printf("nbGagnants = %i\n",nbGagnants);
-	gagnant** g= Readwinners(nbGagnants, t*);
-	printWinners(g,nbGagnants);
+	gagnant* t=Readwinners(nbGagnants);
+	printWinners(t,nbGagnants);
 
 	return EXIT_SUCCESS;
 }
