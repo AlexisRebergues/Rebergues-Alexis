@@ -1,100 +1,139 @@
 #include "liste-chainee.h"
 #include <stdlib.h>
 #include <stdio.h>
-
+ 
 #define TODO NULL;
-
+ 
 // retourne vrai si l est vide et faux sinon
 bool estVide(Liste l) {
-	return l == NULL;
+   return l == NULL;
 }
-
+ 
 // créer une liste d'un seul élément contenant la valeur v
 Liste creer(Element v){
-	return TODO;
+   Liste l=malloc(sizeof(Cellule));
+   if(l!=NULL){
+       l->val=v;
+       l->suiv=NULL;
+      
+   }
+  
+   return l;
 }
-
+ 
 // ajoute l'élément v en tete de la liste l
 Liste ajoutTete(Element v, Liste l) {
-	return TODO;
+ 
+   Liste l2=malloc(sizeof(Cellule));
+   l2->val=v;
+   l2->suiv=l;
+   return l2;
 }
-
-
+ 
+ 
 void afficheElement(Element e) {
-	printf("%i ",e);
+   printf("%i ",e);
 }
-
+ 
 // affiche tous les éléments de la liste l
 // Attention, cette fonction doit être indépendante du type des éléments de la liste
 // utiliser une fonction annexe affiche_element
 // Attention la liste peut être vide !
 // version itérative
 void afficheListe_i(Liste l) {
-	TODO;
+   Liste l2=malloc(sizeof(Cellule));
+   l2=l;
+   while (l2->suiv!=NULL)
+   {
+       printf("%i",l2->val);
+       l2=l2->suiv;
+      
+   }
+   printf("%i",l2->val);
 }
-
+ 
 // version recursive
 void afficheListe_r(Liste l) {
-	TODO;
+   printf("%i",l->val);
+   while (l->suiv!=NULL)
+   {
+      
+       afficheListe_r(l->suiv);
+   }
 }
-
-void detruireElement(Element e) {}
-
+ 
+void detruireElement(Element e) {
+   free(&e);
+ 
+}
+ 
 // Détruit tous les éléments de la liste l
 // version itérative
 void detruire_i(Liste l) {
-	TODO;
+   Liste l2=malloc(sizeof(Cellule));
+   l2=l;
+   while (l->suiv!=NULL){
+       detruireElement(l->val);
+       l2=l->suiv;
+ 
+ 
+   }
+   detruireElement(l2->val);
 }
-
+ 
 // version récursive
 void detruire_r(Liste l) {
-	TODO;
+   detruireElement(l->val);
+   while (l->suiv!=NULL)
+   {
+       detruire_r(l->suiv);
+ 
+   }
 }
-
+ 
+ 
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
 // version itérative
 Liste ajoutFin_i(Element v, Liste l) {
-	return TODO;
+   return TODO;
 }
-
+ 
 // version recursive
 Liste ajoutFin_r(Element v, Liste l) {
-	return TODO;
+   return TODO;
 }
-
+ 
 // compare deux elements
 bool equalsElement(Element e1, Element e2){
-	return e1 == e2;
+   return e1 == e2;
 }
-
+ 
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
 // version itérative
 Liste cherche_i(Element v,Liste l) {
-	return TODO;
+   return TODO;
 }
-
+ 
 // version récursive
 Liste cherche_r(Element v,Liste l) {
-	return TODO;
+   return TODO;
 }
-
+ 
 // Retourne la liste modifiée dans la laquelle le premier élément ayant la valeur v a été supprimé
 // ne fait rien si aucun élément possède cette valeur
 // version itérative
 Liste retirePremier_i(Element v, Liste l) {
-	return TODO;
+   return TODO;
 }
-
-
+ 
+ 
 // version recursive
 Liste retirePremier_r(Element v, Liste l) {
-	return TODO;
+   return TODO;
 }
-
-
+ 
+ 
 void afficheEnvers_r(Liste l) {
-	TODO;
+   TODO;
 }
-
-
-
+ 
