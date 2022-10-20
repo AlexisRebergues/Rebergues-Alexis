@@ -40,6 +40,15 @@ typedef struct Food {
     Color color;
 } Food;
 
+// création de la structure Poison
+
+typedef struct Poison { 
+    Vector2 position;
+    Vector2 size;
+    bool active;
+    Color color;
+} Poison;
+
 //------------------------------------------------------------------------------------
 // Global Variables Declaration
 //------------------------------------------------------------------------------------
@@ -51,6 +60,7 @@ static bool gameOver = false;
 static bool pause = false;
 
 static Food fruit = { 0 };
+static Poison poison ={0}; // déclaration de la variable globale poison
 static Snake snake[SNAKE_LENGTH] = { 0 };
 static Vector2 snakePosition[SNAKE_LENGTH] = { 0 };
 static bool allowMove = false;
