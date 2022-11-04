@@ -12,6 +12,7 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#include "stdio.h"
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
@@ -40,12 +41,11 @@ typedef struct Food {
     Color color;
 } Food;
 
-// création de la structure Poison
-
-typedef struct Poison { 
+typedef struct Poison {
     Vector2 position;
     Vector2 size;
     bool active;
+    Vector2 speed;
     Color color;
 } Poison;
 
@@ -60,12 +60,15 @@ static bool gameOver = false;
 static bool pause = false;
 
 static Food fruit = { 0 };
-static Poison poison ={0}; // déclaration de la variable globale poison
+static Poison poison[SNAKE_LENGTH]={0};
 static Snake snake[SNAKE_LENGTH] = { 0 };
 static Vector2 snakePosition[SNAKE_LENGTH] = { 0 };
 static bool allowMove = false;
 static Vector2 offset = { 0 };
 static int counterTail = 0;
+static bool collisionpoisonfruit=true;
+static int proba;
+static int nombre;
 
 //------------------------------------------------------------------------------------
 // Module Functions Declaration (local)
@@ -125,6 +128,7 @@ void InitGame(void)
 
     counterTail = 1;
     allowMove = false;
+    nombre=0;
 
     offset.x = screenWidth%SQUARE_SIZE;
     offset.y = screenHeight%SQUARE_SIZE;
@@ -147,6 +151,14 @@ void InitGame(void)
     fruit.size = (Vector2){ SQUARE_SIZE, SQUARE_SIZE };
     fruit.color = SKYBLUE;
     fruit.active = false;
+    
+    
+      for (int i = 0; i < SNAKE_LENGTH; i++)
+    {
+    poison[i].size = (Vector2){ SQUARE_SIZE, SQUARE_SIZE };
+    poison[i].color = RED;
+    poison[i].active = false;
+}
 }
 
 // Update game (one frame)
@@ -196,6 +208,51 @@ void UpdateGame(void)
                     else snake[i].position = snakePosition[i-1];
                 }
             }
+            
+            //Condition mouvement de poison (changement de vitesse)
+            if (counterTail>=2){
+                nombre+=1;
+                if (nombre%6==0) {//pour ralentir le mouvement
+                // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
+                proba= 1 + rand() % (4);
+                if (proba==1){
+                    poison[1].speed=(Vector2){ SQUARE_SIZE, 0 };
+                }
+                if (proba==2){
+                     poison[1].speed=(Vector2){ -SQUARE_SIZE, 0 };
+                    
+                }
+                if (proba==3){
+                     poison[1].speed=(Vector2){0,  -SQUARE_SIZE };
+                    
+                }
+                  if (proba==4){
+                     poison[1].speed=(Vector2){0,  SQUARE_SIZE };
+                    
+                }
+                 if ((poison[1].position.x) >= (screenWidth - offset.x)){
+                     poison[1].position.x-=SQUARE_SIZE;
+                 }
+                 if ((poison[1].position.y) >= (screenHeight - offset.y)){
+                     poison[1].position.y-=SQUARE_SIZE;
+                 }
+                 if  (poison[1].position.x <= 0){
+                     poison[1].position.x+=SQUARE_SIZE;
+                     
+                 }
+                 if (poison[1].position.y <= 0){
+                     poison[1].position.y +=SQUARE_SIZE;
+                 }
+                 poison[1].position.x+= poison[1].speed.x;
+                 poison[1].position.y+= poison[1].speed.y;
+                 poison[1].speed.x=0;
+                 poison[1].speed.y=0;
+                 
+                
+ 
+            }
+              
+            } 
 
             // Wall behaviour
             if (((snake[0].position.x) > (screenWidth - offset.x)) ||
@@ -204,7 +261,13 @@ void UpdateGame(void)
             {
                 gameOver = true;
             }
-
+            
+            // GamOver si longueur snake nulle
+            if (counterTail==0)
+            {
+                gameOver= true;
+            }
+            
             // Collision with yourself
             for (int i = 1; i < counterTail; i++)
             {
@@ -226,8 +289,47 @@ void UpdateGame(void)
                     }
                 }
             }
+            
+              // Poison position calculation
+              for (int j=0;j<counterTail;j++){
+                  collisionpoisonfruit=true;
+            if (!poison[j].active)
+            {
+     
+                poison[j].active = true;
+                while (collisionpoisonfruit==true){
+                    
+                poison[j].position = (Vector2){ GetRandomValue(0, (screenWidth/SQUARE_SIZE) - 1)*SQUARE_SIZE + offset.x/2, GetRandomValue(0, (screenHeight/SQUARE_SIZE) - 1)*SQUARE_SIZE + offset.y/2 };
+                collisionpoisonfruit=false;
+                for (int i = 0; i < counterTail; i++)
+                {
+                   if((poison[j].position.x == snake[i].position.x) && (poison[j].position.y == snake[i].position.y))
+                    {
+                      collisionpoisonfruit=true;
+                    }
+                }
+                
+                   
+               
+                    if ((fruit.position.x==poison[j].position.x)&&(fruit.position.y==poison[j].position.y)){
+                    collisionpoisonfruit=true;}
+                    if (j>0){
+                        for (int i=0;i<j;i++){
+                            if ((poison[i].position.x==poison[j].position.x)&&(poison[i].position.y==poison[j].position.y)){
+                                collisionpoisonfruit=true;
+                    }
+                    }
+                    }
+                
+                    
+                    
+            }
 
-            // Collision
+            }
+              }
+              
+
+            // CollisionFruit
             if ((snake[0].position.x < (fruit.position.x + fruit.size.x) && (snake[0].position.x + snake[0].size.x) > fruit.position.x) &&
                 (snake[0].position.y < (fruit.position.y + fruit.size.y) && (snake[0].position.y + snake[0].size.y) > fruit.position.y))
             {
@@ -235,9 +337,18 @@ void UpdateGame(void)
                 counterTail += 1;
                 fruit.active = false;
             }
+            
+            // CollisionPoison
+               for (int j=0;j<counterTail;j++){
+            if ((snake[0].position.x < (poison[j].position.x + poison[j].size.x) && (snake[0].position.x + snake[0].size.x) > poison[j].position.x) &&
+                (snake[0].position.y < (poison[j].position.y + poison[j].size.y) && (snake[0].position.y + snake[0].size.y) > poison[j].position.y))
+            {
+                gameOver=true;
+            }
 
             framesCounter++;
         }
+    }
     }
     else
     {
@@ -276,8 +387,14 @@ void DrawGame(void)
             DrawRectangleV(fruit.position, fruit.size, fruit.color);
 
             if (pause) DrawText("GAME PAUSED", screenWidth/2 - MeasureText("GAME PAUSED", 40)/2, screenHeight/2 - 40, 40, GRAY);
+            
+            
+         // Draw poison to pick
+            for (int i = 0; i < counterTail; i++) DrawRectangleV(poison[i].position, poison[i].size, poison[i].color);
+       
         }
         else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+        
 
     EndDrawing();
 }
