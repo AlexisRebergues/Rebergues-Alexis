@@ -93,6 +93,7 @@ void detruire_r(Liste l) {
  
  
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
+<<<<<<< HEAD
 // version itérative 
 Liste ajoutFin_i(Element v, Liste l) {
    Liste l_suiv= l->suiv;
@@ -116,6 +117,25 @@ Liste ajoutFin_r(Element v, Liste l) {
    }
    return l;
   
+=======
+// version itérative JE NE SAIS PAS
+Liste ajoutFin_i(Element v, Liste l) {
+   Liste v2 = malloc(sizeof(Liste));
+
+   while (l->suiv!=NULL){
+      l=l->suiv;
+   }
+   l->suiv=v;
+
+   }
+}
+ 
+// version recursive JE NE SAIS PAS
+Liste ajoutFin_r(Element v, Liste l) {
+   if (l->suiv=NULL){
+            l->suiv=v;
+   }
+>>>>>>> d18021bff701250db7dec28b106590f6159f58fc
 
 
 }
@@ -128,7 +148,11 @@ bool equalsElement(Element e1, Element e2){
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
 // version itérative
 Liste cherche_i(Element v,Liste l) {
+<<<<<<< HEAD
    while (l->suiv != NULL) {
+=======
+   while (l->suiv!=NULL) {
+>>>>>>> d18021bff701250db7dec28b106590f6159f58fc
       if (l->val==v){
          return l;
       }
@@ -140,7 +164,11 @@ Liste cherche_i(Element v,Liste l) {
    }
 
    
+<<<<<<< HEAD
 
+=======
+}
+>>>>>>> d18021bff701250db7dec28b106590f6159f58fc
  
 // version récursive
 Liste cherche_r(Element v,Liste l) {
@@ -151,7 +179,11 @@ Liste cherche_r(Element v,Liste l) {
    if (l->suiv==NULL){
       return NULL;
    }
+<<<<<<< HEAD
    return cherche_r(v,l->suiv);
+=======
+   return cherche_r(v,l.suiv);
+>>>>>>> d18021bff701250db7dec28b106590f6159f58fc
    
 }
  
