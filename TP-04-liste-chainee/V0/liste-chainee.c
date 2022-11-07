@@ -84,7 +84,7 @@ void detruire_i(Liste l) {
 // version récursive
 void detruire_r(Liste l) {
    detruireElement(l->val);
-   while (l->suiv!=NULL)
+   while (l->suiv != NULL)
    {
        detruire_r(l->suiv);
  
@@ -93,23 +93,29 @@ void detruire_r(Liste l) {
  
  
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
-// version itérative JE NE SAIS PAS
+// version itérative 
 Liste ajoutFin_i(Element v, Liste l) {
-   Liste v2 = malloc(sizeof(Liste));
-
-   while (l->suiv!=NULL){
-      l=l->suiv;
+   Liste l_suiv= l->suiv;
+   while(l_suiv->suiv != NULL){
+      l_suiv=l_suiv->suiv;
    }
-   l->suiv=v;
+   l_suiv->suiv=creer(v);
+   return l;
 
    }
-}
+
  
-// version recursive JE NE SAIS PAS
+// version recursive 
 Liste ajoutFin_r(Element v, Liste l) {
-   if (l->suiv=NULL){
-            l->suiv=v;
+   if (l->suiv==NULL){
+            l->suiv=creer(v);
+            return l;
    }
+   else{  
+      ajoutFin_r(v,l->suiv);
+   }
+   return l;
+  
 
 
 }
@@ -122,7 +128,7 @@ bool equalsElement(Element e1, Element e2){
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
 // version itérative
 Liste cherche_i(Element v,Liste l) {
-   while (l->suiv!=NULL) {
+   while (l->suiv != NULL) {
       if (l->val==v){
          return l;
       }
@@ -134,7 +140,7 @@ Liste cherche_i(Element v,Liste l) {
    }
 
    
-}
+
  
 // version récursive
 Liste cherche_r(Element v,Liste l) {
@@ -145,7 +151,7 @@ Liste cherche_r(Element v,Liste l) {
    if (l->suiv==NULL){
       return NULL;
    }
-   return cherche_r(v,l.suiv);
+   return cherche_r(v,l->suiv);
    
 }
  
