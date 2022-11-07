@@ -1,3 +1,5 @@
+
+
 #include "liste-chainee.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,15 +15,15 @@ bool estVide(Liste l) {
 Liste creer(Element v){
         Liste l = malloc(sizeof(Cellule));
         l->val = v;
+        l->suiv=NULL;
         return l;
 }
 
 // ajoute l'élément v en tete de la liste l
 Liste ajoutTete(Element v, Liste l) {
-        Cellule* ltete = malloc(sizeof(Cellule));
-        ltete->suiv = l;
-        ltete->val = v;        
-        return ltete;
+        Liste res= creer(v);
+        res->suiv=l;
+        return res;
 }
 
 void afficheElement(Element e) {
@@ -34,9 +36,10 @@ void afficheElement(Element e) {
 // Attention la liste peut être vide !
 // version itérative
 void afficheListe_i(Liste l) {
-        while(!estVide(l)){
-                afficheElement(l->val);
-                l = l->suiv;
+        Liste p = l;
+        while(!estVide(p)){
+                afficheElement(p->val);
+                p = p->suiv;
         }
         printf("\n");
 }
@@ -51,46 +54,54 @@ void afficheListe_r(Liste l) {
         }
 }
 
-void detruireElement(Element e) {
-        free(e);
-}
+void detruireElement(Element e) {}
 
 // Détruit tous les éléments de la liste l
 // version itérative
 void detruire_i(Liste l) {
-        while(!estVide(l)){
-                detruireElement(l->val);
-                free(l);
-                l = l->suiv;
+        Liste courant,suivant=l;
+        while(!estVide(courant)){
+                suivant=courant->suiv;
+
+                detruireElement(courant->val);
+                free(courant);
+                courant=suivant;
         };
 }
 
 // version récursive
 void detruire_r(Liste l) {
         if(estVide(l)){
-        } else {
+        } 
+        else {
                 detruireElement(l->val);
                 detruire_r(l->suiv);
+                free(l);
+                }
+
         }
-}
 
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
 // version itérative
 Liste ajoutFin_i(Element v, Liste l) {
-        Liste l_suiv;
-        while(!estVide(l_suiv)){
-                l_suiv = l_suiv->suiv;
+        Liste elem=creer(v);
+        Liste p=l;
+       if (estVide(p)){
+               return elem ;
         };
-        l_suiv = creer(v);
-        return l;
-}
+       while(!estVide(p->suiv)){
+       p=p->suiv;}
+       p->suiv=elem;
+       return p;}
+
 
 // version recursive
 Liste ajoutFin_r(Element v, Liste l) {
-        if(estVide(l)){
-                l = creer(v);
-        } else {
-                l->suiv = ajoutFin_r(v,l->suiv);
+        if (estVide(l)){
+                return creer(v);
+        }
+        else{
+                l->suiv=ajoutFin_r(v,l->suiv);
         }
         return l;
 }
