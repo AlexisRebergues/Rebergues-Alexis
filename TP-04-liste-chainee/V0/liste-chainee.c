@@ -93,14 +93,25 @@ void detruire_r(Liste l) {
  
  
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
-// version itérative
+// version itérative JE NE SAIS PAS
 Liste ajoutFin_i(Element v, Liste l) {
-   return TODO;
+   Liste v2 = malloc(sizeof(Liste));
+
+   while (l->suiv!=NULL){
+      l=l->suiv;
+   }
+   l->suiv=v;
+
+   }
 }
  
-// version recursive
+// version recursive JE NE SAIS PAS
 Liste ajoutFin_r(Element v, Liste l) {
-   return TODO;
+   if (l->suiv=NULL){
+            l->suiv=v;
+   }
+
+
 }
  
 // compare deux elements
@@ -111,29 +122,57 @@ bool equalsElement(Element e1, Element e2){
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
 // version itérative
 Liste cherche_i(Element v,Liste l) {
-   return TODO;
+   while (l->suiv!=NULL) {
+      if (l->val==v){
+         return l;
+      }
+      l=l->suiv;
+         
+      }
+   return NULL;
+
+   }
+
+   
 }
  
 // version récursive
 Liste cherche_r(Element v,Liste l) {
-   return TODO;
+   if (l->val==v)
+   {
+      return l;
+   }
+   if (l->suiv==NULL){
+      return NULL;
+   }
+   return cherche_r(v,l.suiv);
+   
 }
  
 // Retourne la liste modifiée dans la laquelle le premier élément ayant la valeur v a été supprimé
 // ne fait rien si aucun élément possède cette valeur
-// version itérative
+// version itérative JE NE SAIS PAS
 Liste retirePremier_i(Element v, Liste l) {
-   return TODO;
+   Liste l2=malloc(sizeof(Liste));
+   l2=cherche_i(v,l);
+   if (l2==NULL){
+      return l;
+   }
+   l2->val=(l2->suiv)->val;
+   l2->suiv=(l2->suiv)->suiv;
+   int i =0;
+   Liste l3= malloc(sizeof(Liste));
+   
 }
  
  
-// version recursive
+// version recursive JE NE SAIS PAS
 Liste retirePremier_r(Element v, Liste l) {
    return TODO;
 }
  
- 
+ //je ne sais pas non plus
 void afficheEnvers_r(Liste l) {
-   TODO;
+   
 }
  
