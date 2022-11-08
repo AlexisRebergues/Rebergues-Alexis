@@ -126,10 +126,11 @@ Liste cherche_i(Element v,Liste l) {
 
 // version récursive
 Liste cherche_r(Element v,Liste l) {
-        if(estVide(l)){ return NULL; }
-        else if(equalsElement(l->val,v)){ return l;}
-        else {
-                 return cherche_r(v,l->suiv);
+         if ((estVide(l))|| equalsElement(l->val,v)){
+                return l;
+        }
+        else { 
+                return cherche_r(v,l->suiv);
         }
 }
 
@@ -137,31 +138,51 @@ Liste cherche_r(Element v,Liste l) {
 // ne fait rien si aucun élément possède cette valeur
 // version itérative
 Liste retirePremier_i(Element v, Liste l) {
-        Liste l_suiv = l;
-        while(!estVide(l)){
-                if(equalsElement(l_suiv->val,v)){
-                        l_suiv = (l_suiv->suiv);
-                } else {
-                        l_suiv = l_suiv->suiv;
-                }
-                return l;
-        }
+       Liste p=l;
+       if (estVide(p)){return NULL;}
+       if (equalsElement((p->val),v)){
+        return l->suiv;
+
+       }
+       while (!estVide(p->suiv)&& !equalsElement((p->suiv->val), v)){
+        p=p->suiv;
+       }
+       if (equalsElement((p->suiv->val),v)){
+        p->suiv=p->suiv->suiv;
+       }
+       return l;
+        
+
 }
 
 
 // version recursive
 Liste retirePremier_r(Element v, Liste l) {
-        if(equalsElement(l->val,v)){
-                l=(l->suiv);
-        } else {
-                retirePremier_r(v,l->suiv);
-        }
-        return l;
-}
+
+         if (estVide(l)){
+                return l;
+
+                
+         }
+         if (equalsElement(l->val,v)){
+                Liste p=l->suiv;
+                l->suiv=NULL;
+                detruire_r(l);
+                return p;
+         }
+         l->suiv=retirePremier_r(v,l->suiv);
+         return l;
+ }
 
 
 
 
 void afficheEnvers_r(Liste l) {
-        TODO;
+        if (!estVide(l)){
+                if (!estVide(l->suiv)){
+                        afficheEnvers_r(l->suiv);
+                }
+                afficheElement(l->val);
+                printf(" ");
+        }
 }
