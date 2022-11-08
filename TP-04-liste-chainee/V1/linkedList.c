@@ -25,7 +25,7 @@ Liste ajoutTete(Element v, Liste l) {
 }
 
 void afficheElement(Element e) {
-        printf(e);        
+        printf("%s",(char*)e);        
 }
 
 // affiche tous les éléments de la liste l
@@ -106,7 +106,7 @@ Liste ajoutFin_r(Element v, Liste l) {
 
 // compare deux elements
 bool equalsElement(Element e1, Element e2){
-        return e1 == e2;
+        return strcmp((char*)e1,(char*)e2)==0;
 }
 
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
