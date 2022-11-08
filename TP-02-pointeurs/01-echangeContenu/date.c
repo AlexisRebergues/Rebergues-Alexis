@@ -11,7 +11,7 @@ typedef struct
     int année; 
 } Date;
 
-void * InitialiserDate(Date *d){
+void InitialiserDate(Date *d){
     d->jour=1;
     d->mois=1;
     d->année=2022;
@@ -19,7 +19,18 @@ void * InitialiserDate(Date *d){
 }
 
 void afficheDate(Date* d){
-    printf()
+    scanf("%i", &d->jour);
+    scanf("%i",&d->mois);
+    scanf("%i",&d->année);
+    printf("%i", d->jour);
+    if (d->mois==1)
+    {
+        printf("Janvier");
+    }
+    
+    printf("%i",d->mois);
+    printf("%i",d->année);
+    
 }
 
 //retourne date initalisée par copie
