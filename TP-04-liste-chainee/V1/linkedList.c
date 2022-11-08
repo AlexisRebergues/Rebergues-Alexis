@@ -1,4 +1,4 @@
-#include "liste-chainee.h"
+#include "linkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -25,7 +25,7 @@ Liste ajoutTete(Element v, Liste l) {
 }
 
 void afficheElement(Element e) {
-        printf("%i ",e);        
+        printf(e);        
 }
 
 // affiche tous les éléments de la liste l
