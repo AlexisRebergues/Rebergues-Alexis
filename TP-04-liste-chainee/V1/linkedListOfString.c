@@ -1,5 +1,5 @@
 
-#include "linkedList.c"
+#include "linkedList.h"
 #include <stdio.h>
 #include <stdio.h>
 
