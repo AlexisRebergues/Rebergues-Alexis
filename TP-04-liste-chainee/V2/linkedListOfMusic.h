@@ -18,3 +18,4 @@ typedef struct
 void afficheElement(Element e);
 bool equalsElement(Element e1, Element e2);
 void detruireElement(Element e);
+Liste trierListeParAnnee(Liste l);
