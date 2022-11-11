@@ -5,12 +5,12 @@
 
  void afficheElement(Element e) {
         Music* p=(Music*) e;
-        printf("%s ", p->name);
-        printf("%s ", p->artiste);
-        printf("%s", p->album);
-        printf("%s ", p->genre);
-        printf("%i ", p->number);
-        printf("%i ", p->tracknumber);
+        printf("%s, ", p->name);
+        printf("%s, ", p->artiste);
+        printf("%s,", p->album);
+        printf("%s, ", p->genre);
+        printf("%i, ", p->number);
+        printf("%i, ", p->tracknumber);
         printf("%i", p->year)  ;      
 }
 
@@ -25,4 +25,6 @@
         return (strcmp(p2->album,p->album)==0)&&(strcmp(p2->artiste,p->artiste)==0)&&(strcmp(p2->genre,p->genre)==0)&&(strcmp(p2->name,p->name)==0)&&(p2->number==p->number)&&(p2->tracknumber==p->tracknumber)&&(p2->year==p->year);
 }
 
+
+      
 
