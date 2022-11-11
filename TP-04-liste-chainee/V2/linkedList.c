@@ -123,6 +123,7 @@ Liste cherche_i(Element v,Liste l) {
 }
 
 // version récursive
+
 Liste cherche_r(Element v,Liste l) {
          if ((estVide(l))|| equalsElement(l->val,v)){
                 return l;
