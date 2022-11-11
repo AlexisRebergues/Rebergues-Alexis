@@ -49,8 +49,9 @@ int main(void){
       ListeDeMusiques=NULL;
       // traiter le contenu du fichier ici
       char buffer[200];
-      while( fgets(buffer,200,f) != NULL ) {
-         char* ligne= fgets(buffer,200,f);
+      char* ligne= fgets(buffer,200,f);
+      while( ligne != NULL ) {
+         
          int len = strlen(ligne);
          char d[] = ",";
          char *p = strtok(ligne, d);
@@ -109,28 +110,28 @@ int main(void){
       int a=atoi(p);
       music->year=a;
       // afficheElement(music);
-       p = strtok(NULL, d);
+       p = NULL;
 
       j=0;
-     ListeDeMusiques=ajoutFin_i(music,ListeDeMusiques);
+     
     }
    
     // printf("'%s'\n", p);
    
     
-   ;
+  
    
   }
-  trierListeParAnnee(ListeDeMusiques);
-  // afficheElement(ListeDeMusiques->suiv->val);
-     afficheListe_i(ListeDeMusiques);
+  // afficheElement(music);
+  printf("\n");
+  ListeDeMusiques=ajoutTete(music,ListeDeMusiques);
+   ligne= fgets(buffer,200,f);
  
- 
-  // printf("\n");
-  // free(music);
   }
 
-   free(ListeDeMusiques);
+
+   afficheListe_i(ListeDeMusiques);
+      free(ListeDeMusiques);
          
   
 
