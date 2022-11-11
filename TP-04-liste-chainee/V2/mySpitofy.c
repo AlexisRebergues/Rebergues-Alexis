@@ -40,105 +40,41 @@ int main(void){
     // //traiter le contenu du fichier ici
 
     // fclose(f);
-  char fileName[] = "music.csv";
-  FILE* f;
-  if( (f=fopen(fileName,"r")) == NULL) {
-       printf ("Code de l'erreur : %d\n", errno);
-      return EXIT_FAILURE; }
-      Liste ListeDeMusiques;
-      ListeDeMusiques=NULL;
-      // traiter le contenu du fichier ici
-      char buffer[200];
-      char* ligne= fgets(buffer,200,f);
-      while( ligne != NULL ) {
-         
-         int len = strlen(ligne);
-         char d[] = ",";
-         char *p = strtok(ligne, d);
-        //  printf("%s\n",p);
-        
-         int j=0;
-         Music* music=malloc(sizeof(Music));
-         while(p != NULL)
-  {
-     
-    if (j==0){
-     
-      music->name=p;
-      p = strtok(NULL, d);
-       j+=1;
-
-    }
-    else if (j==1){
-      music->artiste=p;
-     p = strtok(NULL, d);
-       j+=1;
-
-
-    }
-    else if (j==2){
-      music->album=p;
-     p = strtok(NULL, d);
-       j+=1;
-
-   
-    }
-    else if(j==3){
-      music->genre=p;
-       p = strtok(NULL, d);
-       j+=1;
-
-   
-    }
-    else if (j==4){
-      int a=atoi(p);
-      music->number=a;
-      p = strtok(NULL, d);
-       j+=1;
-
   
-    }
-    else if (j==5){
-      int a=atoi(p);
-      music->tracknumber=a ;
-       p = strtok(NULL, d);
-       j+=1;
 
- 
-    }
-    else if (j==6){
-      int a=atoi(p);
-      music->year=a;
-      // afficheElement(music);
-       p = NULL;
-
-      j=0;
-     
-    }
-   
-    // printf("'%s'\n", p);
-   
+//  ListeDeMusiques= ajoutFin_i(music,ListeDeMusiques);
+  // afficheElement(music);
     
   
-   
-  }
-  // afficheElement(music);
-  printf("\n");
-  ListeDeMusiques=ajoutTete(music,ListeDeMusiques);
-   ligne= fgets(buffer,200,f);
- 
-  }
+   Music listemusique[2800];  
+     int i = 0;                         
+    Liste liste;                                      
+    FILE* f;                                      
+    char ligne[200];                               
+    char* ligneextraite;                                  
+                                     
+    f=fopen("music.csv","r");
 
+    printf("%s",fgets(ligne,200,f));               
 
-   afficheListe_i(ListeDeMusiques);
-      free(ListeDeMusiques);
-         
-  
+    while (fgets(ligne,200,f) != NULL) {
+        ligneextraite = strdup(ligne);
+       listemusique[i].name = strsep(&ligneextraite,",");
+        listemusique[i].artiste = strsep(&ligneextraite,",");
+        listemusique[i].album = strsep(&ligneextraite,",");
+        listemusique[i].genre = strsep(&ligneextraite,",");
+        listemusique[i].number = atoi(strsep(&ligneextraite,","));
+        listemusique[i].tracknumber = atoi( strsep(&ligneextraite,",") );
+        listemusique[i].year = atoi( strsep(&ligneextraite,",") );
+        liste = ajoutTete(&(listemusique[i]), liste);
+        i++;
+    }
+    fclose(f);
+    liste=trierListeParAnnee(liste);
+    afficheListe_i(liste); //pour récupérer la liste triée par ordre croissant
 
-        //  printf(" %s",buffer);
-        // }
-      fclose(f);
-      return EXIT_SUCCESS;
-}
-
+    // afficheEnvers_r(liste); // la liste a été créee à l'envers, il faut donc utiliser afficheenvers() pour récupérer la liste initiale (en commentant trierlisteparannee)
+   free(listemusique);
+   free(liste);
+    }
 
