@@ -6,6 +6,10 @@
 
 
 
+
+
+
+
 int main(void){
   // Music music;
   // music.album="jiodfjdsoi";
@@ -41,26 +45,99 @@ int main(void){
   if( (f=fopen(fileName,"r")) == NULL) {
        printf ("Code de l'erreur : %d\n", errno);
       return EXIT_FAILURE; }
+      Liste ListeDeMusiques;
+      ListeDeMusiques=NULL;
       // traiter le contenu du fichier ici
-      char buffer[10];
-      // while( fgets(buffer,10,f) != NULL ) {
-         char* ligne= fgets(buffer,150,f);
+      char buffer[200];
+      while( fgets(buffer,200,f) != NULL ) {
+         char* ligne= fgets(buffer,200,f);
          int len = strlen(ligne);
          char d[] = ",";
          char *p = strtok(ligne, d);
+        //  printf("%s\n",p);
+        
+         int j=0;
+         Music* music=malloc(sizeof(Music));
          while(p != NULL)
   {
-    printf("'%s'\n", p);
-    p = strtok(NULL, d);
+     
+    if (j==0){
+     
+      music->name=p;
+      p = strtok(NULL, d);
+       j+=1;
+
+    }
+    else if (j==1){
+      music->artiste=p;
+     p = strtok(NULL, d);
+       j+=1;
+
+
+    }
+    else if (j==2){
+      music->album=p;
+     p = strtok(NULL, d);
+       j+=1;
+
+   
+    }
+    else if(j==3){
+      music->genre=p;
+       p = strtok(NULL, d);
+       j+=1;
+
+   
+    }
+    else if (j==4){
+      int a=atoi(p);
+      music->number=a;
+      p = strtok(NULL, d);
+       j+=1;
+
+  
+    }
+    else if (j==5){
+      int a=atoi(p);
+      music->tracknumber=a ;
+       p = strtok(NULL, d);
+       j+=1;
+
+ 
+    }
+    else if (j==6){
+      int a=atoi(p);
+      music->year=a;
+      // afficheElement(music);
+       p = strtok(NULL, d);
+
+      j=0;
+     ListeDeMusiques=ajoutFin_i(music,ListeDeMusiques);
+    }
+   
+    // printf("'%s'\n", p);
+   
+    
+   ;
+   
   }
-  printf("\n");
+  trierListeParAnnee(ListeDeMusiques);
+  // afficheElement(ListeDeMusiques->suiv->val);
+     afficheListe_i(ListeDeMusiques);
+ 
+ 
+  // printf("\n");
+  // free(music);
+  }
 
+   free(ListeDeMusiques);
          
-
+  
 
         //  printf(" %s",buffer);
         // }
       fclose(f);
       return EXIT_SUCCESS;
 }
+
 
