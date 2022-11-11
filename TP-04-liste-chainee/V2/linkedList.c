@@ -38,9 +38,10 @@ void afficheListe_i(Liste l) {
         Liste p = l;
         while(!estVide(p)){
                 afficheElement(p->val);
+                 printf("\n");
                 p = p->suiv;
         }
-        printf("\n");
+       
 }
 
 // version recursive
@@ -49,6 +50,7 @@ void afficheListe_r(Liste l) {
                 printf("\n");
         } else {
                 afficheElement(l->val);
+                 printf("\n");
                 afficheListe_r(l->suiv);
         }
 }
@@ -87,7 +89,7 @@ Liste ajoutFin_i(Element v, Liste l) {
         Liste p=l;
        if (estVide(p)){
                return elem ;
-        };
+        }
        while(!estVide(p->suiv)){
        p=p->suiv;}
        p->suiv=elem;
@@ -182,6 +184,6 @@ void afficheEnvers_r(Liste l) {
                         afficheEnvers_r(l->suiv);
                 }
                 afficheElement(l->val);
-                printf(" ");
+                printf("\n");
         }
 }
