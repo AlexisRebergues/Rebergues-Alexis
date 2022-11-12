@@ -60,5 +60,6 @@ int main(void){
     // liste=trierListeParAnnee(liste);
     afficheListe_i(liste); //pour récupérer la liste triée par ordre croissant
 
+   detruire_i(liste);
    free(liste);
     }
