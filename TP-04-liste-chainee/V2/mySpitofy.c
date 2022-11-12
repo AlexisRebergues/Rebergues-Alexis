@@ -29,21 +29,7 @@ int main(void){
   // music2.tracknumber=3;
   // music2.year=2022;
 
-  // afficheElement(&music);
-  // bool egal=equalsElement(&music2,&music);
-  // printf("%d",egal);
-    // char filename[]="music.csv";
-    // FILE* f;
-    // f=fopen(filename,"r");
-  
-    // printf("%s",ligne1);
-    // //traiter le contenu du fichier ici
-
-    // fclose(f);
-  
-
-//  ListeDeMusiques= ajoutFin_i(music,ListeDeMusiques);
-  // afficheElement(music);
+  // afficheElement(music2);
     
   
    Music listemusique[2800];  
@@ -66,15 +52,13 @@ int main(void){
         listemusique[i].number = atoi(strsep(&ligneextraite,","));
         listemusique[i].tracknumber = atoi( strsep(&ligneextraite,",") );
         listemusique[i].year = atoi( strsep(&ligneextraite,",") );
-        liste = ajoutTete(&(listemusique[i]), liste);
+        liste = ajoutFin_r(&(listemusique[i]), liste);
         i++;
     }
+  
     fclose(f);
-    liste=trierListeParAnnee(liste);
+    // liste=trierListeParAnnee(liste);
     afficheListe_i(liste); //pour récupérer la liste triée par ordre croissant
 
-    // afficheEnvers_r(liste); // la liste a été créee à l'envers, il faut donc utiliser afficheenvers() pour récupérer la liste initiale (en commentant trierlisteparannee)
-   free(listemusique);
    free(liste);
     }
-
