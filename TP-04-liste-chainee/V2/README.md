@@ -11,9 +11,11 @@ Comment observer les différences:
 
   diff liste  music.csv
   
-Comment observer les fuites mémoires
+Comment observer les fuites mémoires:
+
     valgrind --leak-check=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./mySpotify
 
 
 Observations:
+
     Il existe des fuites mémoires non résolue pour le moment
