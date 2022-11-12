@@ -5,6 +5,8 @@ Comment exécuter:
   ./mySpotify
 
 Comment observer les différences:
+  
+  
   ./mySpotify > liste
 
   diff liste  music.csv
