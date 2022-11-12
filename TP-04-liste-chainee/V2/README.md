@@ -1,7 +1,9 @@
 Comment compiler :
-  gcc -Wall -o mySpotify mySpitofy.c linkedListOfMusic.c linkedList.c 
+ 
+ gcc -Wall -o mySpotify mySpitofy.c linkedListOfMusic.c linkedList.c 
   
 Comment exécuter:
+  
   ./mySpotify
 
 Comment observer les différences:
