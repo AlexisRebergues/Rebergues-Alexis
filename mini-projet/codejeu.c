@@ -71,6 +71,8 @@ static bool collisionpoisonfruit=true;
 static int proba;
 static int nombre;
 static int nombredepoison;
+static bool niveausuivant;
+static int tempsdattente;
 int score; // score du joueur
 int niveau;
 
@@ -136,6 +138,8 @@ void InitGame(void)
     nombre=0;
     score=1;
     nombredepoison=1;
+    niveausuivant=false;
+    tempsdattente=1;
 
     offset.x = screenWidth%SQUARE_SIZE;
     offset.y = screenHeight%SQUARE_SIZE;
@@ -205,7 +209,7 @@ void UpdateGame(void)
             }
 
             // Snake movement
-          if (niveau==1){
+          if ((niveau==1) && (!niveausuivant)){
                for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
             if ((framesCounter%20) == 0)
             {
@@ -224,7 +228,7 @@ void UpdateGame(void)
             }
             }
             
-            else if (niveau==2){
+            else if ((niveau==2) && (!niveausuivant)){
                for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
             if ((framesCounter%17) == 0)
             {
@@ -243,7 +247,7 @@ void UpdateGame(void)
             }
             }
             
-            else if (niveau==3){
+            else if ((niveau==3)  && (!niveausuivant)){
                for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
             if ((framesCounter%13) == 0)
             {
@@ -262,7 +266,7 @@ void UpdateGame(void)
             }
             }
             
-             else if (niveau==4){
+             else if ((niveau==4) && (!niveausuivant)){
                for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
             if ((framesCounter%7) == 0)
             {
@@ -286,11 +290,11 @@ void UpdateGame(void)
             
             //Condition mouvement de poison (changement de vitesse)
             
-            if (niveau==1){
+            if ((niveau==1) && (!niveausuivant)){
                 for (int i=0;i<nombredepoison;i++){
             poison[i].speed=(Vector2){0, 0 };}}
             
-            else if(niveau==2){
+            else if ((niveau==2)  && (!niveausuivant)){
                 for (int i=0;i<nombredepoison;i++){
                 
                 if (framesCounter%20==0) {//pour ralentir le mouvement
@@ -334,7 +338,7 @@ void UpdateGame(void)
             }
             } 
 
-             else if(niveau==3){
+             else if ((niveau==3) && (!niveausuivant)){
                 for (int i=0;i<nombredepoison;i++){
                 
                 if (framesCounter%15==0) {//pour ralentir le mouvement
@@ -378,7 +382,7 @@ void UpdateGame(void)
             }
             } 
             
-             else if(niveau==4){
+             else if ((niveau==4)  && (!niveausuivant)){
                 for (int i=0;i<nombredepoison;i++){
                 
                 if (framesCounter%10==0) {//pour ralentir le mouvement
@@ -591,7 +595,8 @@ if (counterTail==7){
 }
 
     niveau+=1;
-  
+ 
+     niveausuivant=true;
     
     }
 }
@@ -608,7 +613,7 @@ void DrawGame(void)
 
         ClearBackground(RAYWHITE);
 
-        if (!gameOver)
+        if ((!gameOver) && (!niveausuivant))
         {
             // Draw grid lines
             for (int i = 0; i < screenWidth/SQUARE_SIZE + 1; i++)
@@ -636,9 +641,19 @@ void DrawGame(void)
         
        
         }
+        else if ((!gameOver)&& (niveausuivant)){
+            if (tempsdattente%200!=0){
+                DrawText("YOU HAVE COMPLETED THE LEVEL. \n PREPARE YOURSELF TO THE NEXT LEVEL", GetScreenWidth()/2 -200 , GetScreenHeight()/2 - 50, 20, GRAY);
+                tempsdattente+=1;}
+            else{
+                niveausuivant=false;
+                tempsdattente+=1;}
+        }
+            
+            
         else {
             if (niveau==5){
-                 DrawText("CONGRATULATIONS, YOU BEAT THE POISON \n PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("CONGRATULATIONS, YOU BEAT THE POISON. PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+                 DrawText("CONGRATULATIONS, YOU BEAT THE POISON \n PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 -50 , GetScreenHeight()/2 - 50, 18, GRAY);
             
             }
             else{   
