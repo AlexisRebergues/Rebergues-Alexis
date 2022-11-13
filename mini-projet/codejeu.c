@@ -13,6 +13,7 @@
 
 #include "raylib.h"
 #include "stdio.h"
+#include "string.h"
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>
@@ -69,6 +70,7 @@ static int counterTail = 0;
 static bool collisionpoisonfruit=true;
 static int proba;
 static int nombre;
+int score=1; // score du joueur
 
 //------------------------------------------------------------------------------------
 // Module Functions Declaration (local)
@@ -195,7 +197,7 @@ void UpdateGame(void)
             // Snake movement
             for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
 
-            if ((framesCounter%5) == 0)
+            if ((framesCounter%7) == 0)
             {
                 for (int i = 0; i < counterTail; i++)
                 {
@@ -210,49 +212,149 @@ void UpdateGame(void)
             }
             
             //Condition mouvement de poison (changement de vitesse)
-            if (counterTail>=2){
-                nombre+=1;
-                if (nombre%6==0) {//pour ralentir le mouvement
+            nombre+=1;
+            if ((counterTail>=3)&& (counterTail<=5)) {
+                for (int i=0;i<counterTail;i++){
+                
+                if (nombre%20==0) {//pour ralentir le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
                 proba= 1 + rand() % (4);
                 if (proba==1){
-                    poison[1].speed=(Vector2){ SQUARE_SIZE, 0 };
+                    poison[i].speed=(Vector2){ SQUARE_SIZE, 0 };
                 }
                 if (proba==2){
-                     poison[1].speed=(Vector2){ -SQUARE_SIZE, 0 };
+                     poison[i].speed=(Vector2){ -SQUARE_SIZE, 0 };
                     
                 }
                 if (proba==3){
-                     poison[1].speed=(Vector2){0,  -SQUARE_SIZE };
+                     poison[i].speed=(Vector2){0,  -SQUARE_SIZE };
                     
                 }
                   if (proba==4){
-                     poison[1].speed=(Vector2){0,  SQUARE_SIZE };
+                     poison[i].speed=(Vector2){0,  SQUARE_SIZE };
                     
                 }
-                 if ((poison[1].position.x) >= (screenWidth - offset.x)){
-                     poison[1].position.x-=SQUARE_SIZE;
+                 if ((poison[i].position.x) >= (screenWidth - offset.x)){
+                     poison[i].position.x-=SQUARE_SIZE;
                  }
-                 if ((poison[1].position.y) >= (screenHeight - offset.y)){
-                     poison[1].position.y-=SQUARE_SIZE;
+                 if ((poison[i].position.y) >= (screenHeight - offset.y)){
+                     poison[i].position.y-=SQUARE_SIZE;
                  }
-                 if  (poison[1].position.x <= 0){
-                     poison[1].position.x+=SQUARE_SIZE;
+                 if  (poison[i].position.x <= 0){
+                     poison[i].position.x+=SQUARE_SIZE;
                      
                  }
-                 if (poison[1].position.y <= 0){
-                     poison[1].position.y +=SQUARE_SIZE;
+                 if (poison[i].position.y <= 0){
+                     poison[i].position.y +=SQUARE_SIZE;
                  }
-                 poison[1].position.x+= poison[1].speed.x;
-                 poison[1].position.y+= poison[1].speed.y;
-                 poison[1].speed.x=0;
-                 poison[1].speed.y=0;
+                 poison[i].position.x+= poison[i].speed.x;
+                 poison[i].position.y+= poison[i].speed.y;
+                 poison[i].speed.x=0;
+                poison[i].speed.y=0;}
                  
                 
  
             }
               
             } 
+            
+             else if ((counterTail>=6)&& (counterTail<=9)) {
+                for (int i=0;i<counterTail;i++){
+                
+                if (nombre%15==0) {//pour ralentir le mouvement
+                // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
+                proba= 1 + rand() % (4);
+                if (proba==1){
+                    poison[i].speed=(Vector2){ SQUARE_SIZE, 0 };
+                }
+                if (proba==2){
+                     poison[i].speed=(Vector2){ -SQUARE_SIZE, 0 };
+                    
+                }
+                if (proba==3){
+                     poison[i].speed=(Vector2){0,  -SQUARE_SIZE };
+                    
+                }
+                  if (proba==4){
+                     poison[i].speed=(Vector2){0,  SQUARE_SIZE };
+                    
+                }
+                 if ((poison[i].position.x) >= (screenWidth - offset.x)){
+                     poison[i].position.x-=SQUARE_SIZE;
+                 }
+                 if ((poison[i].position.y) >= (screenHeight - offset.y)){
+                     poison[i].position.y-=SQUARE_SIZE;
+                 }
+                 if  (poison[i].position.x <= 0){
+                     poison[i].position.x+=SQUARE_SIZE;
+                     
+                 }
+                 if (poison[i].position.y <= 0){
+                     poison[i].position.y +=SQUARE_SIZE;
+                 }
+                 poison[i].position.x+= poison[i].speed.x;
+                 poison[i].position.y+= poison[i].speed.y;
+                 poison[i].speed.x=0;
+                poison[i].speed.y=0;}
+                 
+                
+ 
+            }
+              
+            } 
+            
+            else if (counterTail>=10)  {
+                for (int i=0;i<counterTail;i++){
+                
+                if (nombre%10==0) {//pour ralentir le mouvement
+                // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
+                proba= 1 + rand() % (4);
+                if (proba==1){
+                    poison[i].speed=(Vector2){ SQUARE_SIZE, 0 };
+                }
+                if (proba==2){
+                     poison[i].speed=(Vector2){ -SQUARE_SIZE, 0 };
+                    
+                }
+                if (proba==3){
+                     poison[i].speed=(Vector2){0,  -SQUARE_SIZE };
+                    
+                }
+                  if (proba==4){
+                     poison[i].speed=(Vector2){0,  SQUARE_SIZE };
+                    
+                }
+                 if ((poison[i].position.x) >= (screenWidth - offset.x)){
+                     poison[i].position.x-=SQUARE_SIZE;
+                 }
+                 if ((poison[i].position.y) >= (screenHeight - offset.y)){
+                     poison[i].position.y-=SQUARE_SIZE;
+                 }
+                 if  (poison[i].position.x <= 0){
+                     poison[i].position.x+=SQUARE_SIZE;
+                     
+                 }
+                 if (poison[i].position.y <= 0){
+                     poison[i].position.y +=SQUARE_SIZE;
+                 }
+                 poison[i].position.x+= poison[i].speed.x;
+                 poison[i].position.y+= poison[i].speed.y;
+                 poison[i].speed.x=0;
+                poison[i].speed.y=0;}
+                 
+                
+ 
+            }
+              
+            } 
+            
+            
+              
+                
+ 
+            
+              
+            
 
             // Wall behaviour
             if (((snake[0].position.x) > (screenWidth - offset.x)) ||
@@ -335,6 +437,7 @@ void UpdateGame(void)
             {
                 snake[counterTail].position = snakePosition[counterTail - 1];
                 counterTail += 1;
+                score +=1; // le score du joueur augmente
                 fruit.active = false;
             }
             
@@ -346,8 +449,9 @@ void UpdateGame(void)
                 gameOver=true;
             }
 
-            framesCounter++;
+            
         }
+     framesCounter++;   
     }
     }
     else
@@ -393,7 +497,16 @@ void DrawGame(void)
             for (int i = 0; i < counterTail; i++) DrawRectangleV(poison[i].position, poison[i].size, poison[i].color);
        
         }
-        else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+        else {
+            char score2[2];
+            sprintf(score2, "%d", score);
+
+           char* Phrasedefin="PRESS [ENTER] TO PLAY AGAIN \n YOUR SCORE IS: ";
+       // char* phraseavecscore=strcat(Phrasedefin,score2);
+       DrawText(Phrasedefin, GetScreenWidth()/2 - MeasureText(Phrasedefin, 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+       DrawText(score2, GetScreenWidth()/2 - MeasureText(score2, 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);}
+       
+        
         
 
     EndDrawing();
@@ -411,3 +524,4 @@ void UpdateDrawFrame(void)
     UpdateGame();
     DrawGame();
 }
+
