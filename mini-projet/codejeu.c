@@ -249,11 +249,11 @@ void UpdateGame(void)
             
             
             //Condition mouvement de poison (changement de vitesse)
-            nombre+=1;
+            
             if ((counterTail>=5)&& (counterTail<=7)) {
                 for (int i=0;i<nombredepoison;i++){
                 
-                if (nombre%20==0) {//pour ralentir le mouvement
+                if (framesCounter%20==0) {//pour ralentir le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
                 proba= 1 + rand() % (4);
                 if (proba==1){
@@ -298,7 +298,7 @@ void UpdateGame(void)
              else if ((counterTail>=8)&& (counterTail<=10)) {
                 for (int i=0;i<nombredepoison;i++){
                 
-                if (nombre%15==0) {//pour ralentir le mouvement
+                if (framesCounter%15==0) {//pour réguler le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
                 proba= 1 + rand() % (4);
                 if (proba==1){
@@ -343,7 +343,7 @@ void UpdateGame(void)
             else if (counterTail>10)  {
                 for (int i=0;i<nombredepoison;i++){
                 
-                if (nombre%10==0) {//pour ralentir le mouvement
+                if (framesCounter%10==0) {//pour réguler le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
                 proba= 1 + rand() % (4);
                 if (proba==1){
@@ -399,12 +399,6 @@ void UpdateGame(void)
                 (snake[0].position.x < 0) || (snake[0].position.y < 0))
             {
                 gameOver = true;
-            }
-            
-            // GamOver si longueur snake nulle
-            if (counterTail==0)
-            {
-                gameOver= true;
             }
             
             // Collision with yourself
@@ -568,4 +562,3 @@ void UpdateDrawFrame(void)
     UpdateGame();
     DrawGame();
 }
-
