@@ -70,7 +70,8 @@ static int counterTail = 0;
 static bool collisionpoisonfruit=true;
 static int proba;
 static int nombre;
-int score=1; // score du joueur
+static int nombredepoison;
+int score; // score du joueur
 
 //------------------------------------------------------------------------------------
 // Module Functions Declaration (local)
@@ -131,6 +132,8 @@ void InitGame(void)
     counterTail = 1;
     allowMove = false;
     nombre=0;
+    score=1;
+    nombredepoison=1;
 
     offset.x = screenWidth%SQUARE_SIZE;
     offset.y = screenHeight%SQUARE_SIZE;
@@ -172,6 +175,7 @@ void UpdateGame(void)
 
         if (!pause)
         {
+           
             // Player control
             if (IsKeyPressed(KEY_RIGHT) && (snake[0].speed.x == 0) && allowMove)
             {
@@ -196,7 +200,22 @@ void UpdateGame(void)
 
             // Snake movement
             for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
-
+            if (counterTail<3){
+            if ((framesCounter%9) == 0)
+            {
+                for (int i = 0; i < counterTail; i++)
+                {
+                    if (i == 0)
+                    {
+                        snake[0].position.x += snake[0].speed.x;
+                        snake[0].position.y += snake[0].speed.y;
+                        allowMove = true;
+                    }
+                    else snake[i].position = snakePosition[i-1];
+                }
+            }
+            }
+            else if ((counterTail>=3) && (counterTail<6)){
             if ((framesCounter%7) == 0)
             {
                 for (int i = 0; i < counterTail; i++)
@@ -210,11 +229,29 @@ void UpdateGame(void)
                     else snake[i].position = snakePosition[i-1];
                 }
             }
+            }
+                else if (counterTail>=6) {
+            if ((framesCounter%5) == 0)
+            {
+                for (int i = 0; i < counterTail; i++)
+                {
+                    if (i == 0)
+                    {
+                        snake[0].position.x += snake[0].speed.x;
+                        snake[0].position.y += snake[0].speed.y;
+                        allowMove = true;
+                    }
+                    else snake[i].position = snakePosition[i-1];
+                }
+            }
+            }
+        
+            
             
             //Condition mouvement de poison (changement de vitesse)
             nombre+=1;
-            if ((counterTail>=3)&& (counterTail<=5)) {
-                for (int i=0;i<counterTail;i++){
+            if ((counterTail>=5)&& (counterTail<=7)) {
+                for (int i=0;i<nombredepoison;i++){
                 
                 if (nombre%20==0) {//pour ralentir le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
@@ -258,8 +295,8 @@ void UpdateGame(void)
               
             } 
             
-             else if ((counterTail>=6)&& (counterTail<=9)) {
-                for (int i=0;i<counterTail;i++){
+             else if ((counterTail>=8)&& (counterTail<=10)) {
+                for (int i=0;i<nombredepoison;i++){
                 
                 if (nombre%15==0) {//pour ralentir le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
@@ -303,8 +340,8 @@ void UpdateGame(void)
               
             } 
             
-            else if (counterTail>=10)  {
-                for (int i=0;i<counterTail;i++){
+            else if (counterTail>10)  {
+                for (int i=0;i<nombredepoison;i++){
                 
                 if (nombre%10==0) {//pour ralentir le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
@@ -393,10 +430,14 @@ void UpdateGame(void)
             }
             
               // Poison position calculation
-              for (int j=0;j<counterTail;j++){
+              for (int j=0;j<nombredepoison;j++){
                   collisionpoisonfruit=true;
-            if (!poison[j].active)
+            if ((!poison[j].active) )
             {
+           
+                
+                
+                
      
                 poison[j].active = true;
                 while (collisionpoisonfruit==true){
@@ -442,7 +483,7 @@ void UpdateGame(void)
             }
             
             // CollisionPoison
-               for (int j=0;j<counterTail;j++){
+               for (int j=0;j<nombredepoison;j++){
             if ((snake[0].position.x < (poison[j].position.x + poison[j].size.x) && (snake[0].position.x + snake[0].size.x) > poison[j].position.x) &&
                 (snake[0].position.y < (poison[j].position.y + poison[j].size.y) && (snake[0].position.y + snake[0].size.y) > poison[j].position.y))
             {
@@ -451,6 +492,8 @@ void UpdateGame(void)
 
             
         }
+         //calcul du nombre de poison
+            nombredepoison=counterTail/3+1;
      framesCounter++;   
     }
     }
@@ -494,17 +537,18 @@ void DrawGame(void)
             
             
          // Draw poison to pick
-            for (int i = 0; i < counterTail; i++) DrawRectangleV(poison[i].position, poison[i].size, poison[i].color);
+            for (int i = 0; i < nombredepoison; i++) DrawRectangleV(poison[i].position, poison[i].size, poison[i].color);
        
         }
         else {
             char score2[2];
             sprintf(score2, "%d", score);
 
-           char* Phrasedefin="PRESS [ENTER] TO PLAY AGAIN \n YOUR SCORE IS: ";
+           char* Phrasedefin="PRESS [ENTER] TO PLAY AGAIN \n         YOUR SCORE IS: ";
        // char* phraseavecscore=strcat(Phrasedefin,score2);
        DrawText(Phrasedefin, GetScreenWidth()/2 - MeasureText(Phrasedefin, 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
-       DrawText(score2, GetScreenWidth()/2 - MeasureText(score2, 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);}
+       DrawText(score2, GetScreenWidth()/2 +90 , GetScreenHeight()/2-20 , 20, RED);
+      }
        
         
         
