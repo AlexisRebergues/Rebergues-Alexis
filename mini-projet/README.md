@@ -41,11 +41,11 @@ Dans le code nous avons :
 - implémenté le mouvement des poisons de manière aléatoire à l'aide de la variable int proba (boucles if) et d'un random ( (rand)%(4) dans notre cas ) en fonction de chaque niveau
 - ajouté le dessin des différents poisons sur la fenêtre
 - affiché le niveau atteint (variable int niveau) sur la fenêtre du Game Over et une fenêtre de félicitation si le jeu a été fini
+- ajouté une page (Drawtext) permettant d'avertir le joueur d'un passage à un autre niveau (conditionné avec un booléen niveausuivant)
+
 
 # Extensions / améliorations possibles
 
 Ce jeu peut être complété par : 
-
-- Plusieurs fenêtres s'affichant permettant d'avertir le joueur d'un passage à niveau le passage d'un niveau à un autre.
 - Ajout de plusieurs étapes intermédiaires (niveau sans poison, niveau avec poisons fixes, mouvement avec poison déterministe puis non deterministe, avec des niveaux de plus en plus rapides et une vitesse toujours plus élevée.
 
