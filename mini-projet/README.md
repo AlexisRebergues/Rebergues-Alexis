@@ -3,7 +3,9 @@
 - quelle(s) modifications, ... ?
 
 Le jeu modifié est le snake. L'objectif du projet est d'ajouter un poison qui si l'on le touche lance le Game OVER. Au départ fixe, ce poison se mettra à se déplacer à la manière d'un snake dès lors
-que la longueur du serpent devient importante. 
+que le joueur passera un niveau. 
+
+Le jeu a été codé sous la forme de différents niveau, de difficulté croissante
 # Comment compiler
 
 gcc -o code.exe code.c C:\raylib\raylib\src\raylib.rc.data -s -static -O2 -std=c99 -Wall -IC:\raylib\raylib\src -Iexternal -DPLATFORM_DESKTOP -lraylib -lopengl32 -lgdi32 -lwinmm
@@ -46,5 +48,5 @@ Dans le code nous avons :
 # Extensions / améliorations possibles
 
 Ce jeu peut être complété par : 
-- Ajout de plusieurs étapes intermédiaires (niveau sans poison, niveau avec poisons fixes, mouvement avec poison déterministe puis non deterministe, avec des niveaux de plus en plus rapides et une vitesse toujours plus élevée.
+- l'ajout de plusieurs étapes intermédiaires (niveau sans poison, niveau avec poisons fixes, mouvement avec poison déterministe puis non deterministe, avec des niveaux de plus en plus rapides et une vitesse toujours plus élevée.
 
