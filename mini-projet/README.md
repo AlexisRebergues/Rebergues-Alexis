@@ -19,6 +19,12 @@ Il n'y a qu'une règle qui y a été ajouté: si la tête du serpent entre en co
 
 ![explication contact](https://user-images.githubusercontent.com/115557979/201527158-ff227b5c-e643-42de-bdc5-fef6bc3593ea.png)
 
+Le jeu a été développé sous forme de 4 niveaux, chaque niveau étant plus difficile que le précédent ( vitesse du serpent plus élevée, déplacements plus rapide du poison ). 
+
+Dés que vous atteignez une longueur de serpent de 7, alors vous accédez au niveau suivant. 
+
+
+
 
 # URL vidéo de démo
 
@@ -40,6 +46,6 @@ Dans le code nous avons :
 
 Ce jeu peut être complété par : 
 
-- Plusieurs fenêtres s'affichant permettant de partitionner le passage d'un niveau à un autre puis relance du jeu avec niveau plus difficile (disons que si la longueur du serpent est de 5, alors on change de niveau)
+- Plusieurs fenêtres s'affichant permettant d'avertir le joueur d'un passage à niveau le passage d'un niveau à un autre.
 - Ajout de plusieurs étapes intermédiaires (niveau sans poison, niveau avec poisons fixes, mouvement avec poison déterministe puis non deterministe, avec des niveaux de plus en plus rapides et une vitesse toujours plus élevée.
 
