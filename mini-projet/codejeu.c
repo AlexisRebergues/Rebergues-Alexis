@@ -72,6 +72,7 @@ static int proba;
 static int nombre;
 static int nombredepoison;
 int score; // score du joueur
+int niveau;
 
 //------------------------------------------------------------------------------------
 // Module Functions Declaration (local)
@@ -125,6 +126,7 @@ int main(void)
 // Initialize game variables
 void InitGame(void)
 {
+    niveau=1;
     framesCounter = 0;
     gameOver = false;
     pause = false;
@@ -169,6 +171,10 @@ void InitGame(void)
 // Update game (one frame)
 void UpdateGame(void)
 {
+    //si on a terminé le jeu
+    if (niveau==5){
+    gameOver=true;}
+    //sinon
     if (!gameOver)
     {
         if (IsKeyPressed('P')) pause = !pause;
@@ -199,10 +205,12 @@ void UpdateGame(void)
             }
 
             // Snake movement
-            for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
-            if (counterTail<3){
-            if ((framesCounter%9) == 0)
+          if (niveau==1){
+               for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
+            if ((framesCounter%20) == 0)
             {
+                        
+           
                 for (int i = 0; i < counterTail; i++)
                 {
                     if (i == 0)
@@ -215,9 +223,51 @@ void UpdateGame(void)
                 }
             }
             }
-            else if ((counterTail>=3) && (counterTail<6)){
+            
+            else if (niveau==2){
+               for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
+            if ((framesCounter%17) == 0)
+            {
+                        
+           
+                for (int i = 0; i < counterTail; i++)
+                {
+                    if (i == 0)
+                    {
+                        snake[0].position.x += snake[0].speed.x;
+                        snake[0].position.y += snake[0].speed.y;
+                        allowMove = true;
+                    }
+                    else snake[i].position = snakePosition[i-1];
+                }
+            }
+            }
+            
+            else if (niveau==3){
+               for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
+            if ((framesCounter%13) == 0)
+            {
+                        
+           
+                for (int i = 0; i < counterTail; i++)
+                {
+                    if (i == 0)
+                    {
+                        snake[0].position.x += snake[0].speed.x;
+                        snake[0].position.y += snake[0].speed.y;
+                        allowMove = true;
+                    }
+                    else snake[i].position = snakePosition[i-1];
+                }
+            }
+            }
+            
+             else if (niveau==4){
+               for (int i = 0; i < counterTail; i++) snakePosition[i] = snake[i].position;
             if ((framesCounter%7) == 0)
             {
+                        
+           
                 for (int i = 0; i < counterTail; i++)
                 {
                     if (i == 0)
@@ -230,27 +280,17 @@ void UpdateGame(void)
                 }
             }
             }
-                else if (counterTail>=6) {
-            if ((framesCounter%5) == 0)
-            {
-                for (int i = 0; i < counterTail; i++)
-                {
-                    if (i == 0)
-                    {
-                        snake[0].position.x += snake[0].speed.x;
-                        snake[0].position.y += snake[0].speed.y;
-                        allowMove = true;
-                    }
-                    else snake[i].position = snakePosition[i-1];
-                }
-            }
-            }
-        
+           
+           
             
             
             //Condition mouvement de poison (changement de vitesse)
             
-            if ((counterTail>=5)&& (counterTail<=7)) {
+            if (niveau==1){
+                for (int i=0;i<nombredepoison;i++){
+            poison[i].speed=(Vector2){0, 0 };}}
+            
+            else if(niveau==2){
                 for (int i=0;i<nombredepoison;i++){
                 
                 if (framesCounter%20==0) {//pour ralentir le mouvement
@@ -292,13 +332,12 @@ void UpdateGame(void)
                 
  
             }
-              
             } 
-            
-             else if ((counterTail>=8)&& (counterTail<=10)) {
+
+             else if(niveau==3){
                 for (int i=0;i<nombredepoison;i++){
                 
-                if (framesCounter%15==0) {//pour réguler le mouvement
+                if (framesCounter%15==0) {//pour ralentir le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
                 proba= 1 + rand() % (4);
                 if (proba==1){
@@ -337,13 +376,12 @@ void UpdateGame(void)
                 
  
             }
-              
             } 
             
-            else if (counterTail>10)  {
+             else if(niveau==4){
                 for (int i=0;i<nombredepoison;i++){
                 
-                if (framesCounter%10==0) {//pour réguler le mouvement
+                if (framesCounter%10==0) {//pour ralentir le mouvement
                 // Génère un entier pseudo-aléatoire compris entre 1 et 4 (inclus)
                 proba= 1 + rand() % (4);
                 if (proba==1){
@@ -382,8 +420,18 @@ void UpdateGame(void)
                 
  
             }
-              
             } 
+            
+                
+                
+                 
+                
+ 
+            
+              
+             
+            
+             
             
             
               
@@ -401,6 +449,7 @@ void UpdateGame(void)
                 gameOver = true;
             }
             
+     
             // Collision with yourself
             for (int i = 1; i < counterTail; i++)
             {
@@ -487,7 +536,7 @@ void UpdateGame(void)
             
         }
          //calcul du nombre de poison
-            nombredepoison=counterTail/3+1;
+            nombredepoison=counterTail;
      framesCounter++;   
     }
     }
@@ -499,7 +548,58 @@ void UpdateGame(void)
             gameOver = false;
         }
     }
+
+if (counterTail==7){
+    framesCounter = 0;
+    gameOver = false;
+    pause = false;
+
+    counterTail = 1;
+    allowMove = false;
+    nombre=0;
+    score=1;
+    nombredepoison=1;
+
+    offset.x = screenWidth%SQUARE_SIZE;
+    offset.y = screenHeight%SQUARE_SIZE;
+
+    for (int i = 0; i < SNAKE_LENGTH; i++)
+    {
+        snake[i].position = (Vector2){ offset.x/2, offset.y/2 };
+        snake[i].size = (Vector2){ SQUARE_SIZE, SQUARE_SIZE };
+        snake[i].speed = (Vector2){ SQUARE_SIZE, 0 };
+
+        if (i == 0) snake[i].color = DARKBLUE;
+        else snake[i].color = BLUE;
+    }
+
+    for (int i = 0; i < SNAKE_LENGTH; i++)
+    {
+        snakePosition[i] = (Vector2){ 0.0f, 0.0f };
+    }
+
+    fruit.size = (Vector2){ SQUARE_SIZE, SQUARE_SIZE };
+    fruit.color = SKYBLUE;
+    fruit.active = false;
+    
+    
+      for (int i = 0; i < SNAKE_LENGTH; i++)
+    {
+    poison[i].size = (Vector2){ SQUARE_SIZE, SQUARE_SIZE };
+    poison[i].color = RED;
+    poison[i].active = false;
 }
+
+    niveau+=1;
+  
+    
+    }
+}
+    
+    
+    
+    
+    
 
 // Draw game (one frame)
 void DrawGame(void)
@@ -532,17 +632,25 @@ void DrawGame(void)
             
          // Draw poison to pick
             for (int i = 0; i < nombredepoison; i++) DrawRectangleV(poison[i].position, poison[i].size, poison[i].color);
+            
+        
        
         }
         else {
-            char score2[2];
-            sprintf(score2, "%d", score);
+            if (niveau==5){
+                 DrawText("CONGRATULATIONS, YOU BEAT THE POISON \n PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth()/2 - MeasureText("CONGRATULATIONS, YOU BEAT THE POISON. PRESS [ENTER] TO PLAY AGAIN", 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
+            
+            }
+            else{   
+            char niveau2[2];
+            sprintf(niveau2, "%d", niveau);
 
-           char* Phrasedefin="PRESS [ENTER] TO PLAY AGAIN \n         YOUR SCORE IS: ";
+           char* Phrasedefin="PRESS [ENTER] TO PLAY AGAIN \n   YOU REACHED THE LEVEL: ";
        // char* phraseavecscore=strcat(Phrasedefin,score2);
        DrawText(Phrasedefin, GetScreenWidth()/2 - MeasureText(Phrasedefin, 20)/2, GetScreenHeight()/2 - 50, 20, GRAY);
-       DrawText(score2, GetScreenWidth()/2 +90 , GetScreenHeight()/2-20 , 20, RED);
+       DrawText(niveau2, GetScreenWidth()/2 +140 , GetScreenHeight()/2-20 , 20, RED);
       }
+        }
        
         
         
