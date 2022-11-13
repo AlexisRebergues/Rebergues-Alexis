@@ -6,11 +6,11 @@ Le jeu modifié est le snake. L'objectif du projet est d'ajouter un poison qui s
 que la longueur du serpent devient importante. 
 # Comment compiler
 
-gcc -o codeavecpoisonmultiplesavecdeplacementproblemeavecsnake.exe codeavecpoisonmultiplesavecdeplacementproblemeavecsnake.c C:\raylib\raylib\src\raylib.rc.data -s -static -O2 -std=c99 -Wall -IC:\raylib\raylib\src -Iexternal -DPLATFORM_DESKTOP -lraylib -lopengl32 -lgdi32 -lwinmm
+gcc -o code.exe code.c C:\raylib\raylib\src\raylib.rc.data -s -static -O2 -std=c99 -Wall -IC:\raylib\raylib\src -Iexternal -DPLATFORM_DESKTOP -lraylib -lopengl32 -lgdi32 -lwinmm
 
 # Comment exécuter
 
-cmd /c IF EXIST codeavecpoisonmultiplesavecdeplacementproblemeavecsnake.exe codeavecpoisonmultiplesavecdeplacementproblemeavecsnake.exe
+cmd /c IF EXIST code.exe code.exe
 
 # Comment utiliser le projet
 screenshot(s) du jeu
