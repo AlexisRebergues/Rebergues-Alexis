@@ -27,8 +27,7 @@ Dés que vous atteignez une longueur de serpent de 7, alors vous accédez au niv
 
 
 # URL vidéo de démo
-
-https://www.youtube.com/watch?v=EqMHM1fYCig
+https://www.youtube.com/watch?v=GGeK5OP6RCg
 
 
 # Quelques détails sur votre implémentation
