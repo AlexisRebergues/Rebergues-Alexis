@@ -36,11 +36,11 @@ Un seul fichier contenant le code du jeu. Cependant de nombreux commentaires son
 
 Dans le code nous avons :
 - ajouté une structure de type Poison analogue à la struct de type Food
-- complété le mouvement de serpent en ajoutant des conditions (if ) concernant la longueur du serpent (variable int Countertail) afin d'implémenter le déplacement du serpent (snake.speed)
+- conditionné  ( boucle if )  le mouvement du serpent ( snake.speed ) en fonction du niveau
 - implémenté la génération aléatoire de la position de chaque poison (random) en ajoutant des conditions (boucle while) relançant la génération tant que la position du poison est égale à celle d'un autre poison ou de la nourriture
-- implémenté le mouvement des poisons de manière aléatoire à l'aide de la variable int proba (boucles if) et d'un random ( (rand)%(4) dans notre cas )
+- implémenté le mouvement des poisons de manière aléatoire à l'aide de la variable int proba (boucles if) et d'un random ( (rand)%(4) dans notre cas ) en fonction de chaque niveau
 - ajouté le dessin des différents poisons sur la fenêtre
-- ajouté le score du joueur (variable int score) sur la fenêtre du Game Over
+- affiché le niveau atteint (variable int niveau) sur la fenêtre du Game Over et une fenêtre de félicitation si le jeu a été fini
 
 # Extensions / améliorations possibles
 
