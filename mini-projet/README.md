@@ -13,8 +13,12 @@ gcc -o code.exe code.c C:\raylib\raylib\src\raylib.rc.data -s -static -O2 -std=c
 cmd /c IF EXIST code.exe code.exe
 
 # Comment utiliser le projet
-screenshot(s) du jeu
-règles, touches, ...
+
+Les commandes du jeu restent les mêmes pour l'utilisateur (simples mouvements de flèches).
+Il n'y a qu'une règle qui y a été ajouté: si la tête du serpent entre en contact avec un des poisons, alors c'est Game Over?
+![explication contact](https://user-images.githubusercontent.com/115557979/201527158-ff227b5c-e643-42de-bdc5-fef6bc3593ea.png)
+
+
 # URL vidéo de démo
 # Quelques détails sur votre implémentation
 quel(s) fichier(s), structures de données, algorithme, ...
